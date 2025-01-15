@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import ItemCard from "./ItemCard"
+import Header from "./Header"
 import './Transaction.css'
 import { useState } from "react"
 const template = [
@@ -50,6 +51,7 @@ export default function Transaction(){
     const [users, setUsers] = useState(tempUsers)
     return(
         <>
+            <Header text = {"Order Summary"}></Header>
             <div className = "itemsContainer">
             {template.map((item) => (
                 <ItemCard name = {item.name} price = {item.price} selectable={false} selectFunction = {() => {}}></ItemCard>

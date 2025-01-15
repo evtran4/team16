@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom"
 import ItemCard from "./ItemCard"
 import { useEffect, useState } from "react"
+import Header from "./Header"
 
 
 interface Item{
@@ -81,7 +82,7 @@ export default function SplitScreen(){
 
     return(
         <>
-            <h1>{currUser.name}</h1>
+            <Header text={currUser.name}></Header>
             <div className = "itemsContainer">
                 {items.map((item: Item) => (
                     <ItemCard name = {item.name} price = {item.price} selectable = {true} selectFunction = {changeItems}></ItemCard>
