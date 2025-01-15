@@ -1,0 +1,26 @@
+.itemsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 40%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.itemCardContainer{
+    border-radius: 15px;
+    width: 100%;
+    height: 100px;
+    box-shadow: 0px 2px 2px 1px rgb(222, 222, 222);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.itemCardColumn{
+    display: flex;
+    gap: 10px;
+}

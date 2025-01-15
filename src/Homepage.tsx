@@ -1,10 +1,12 @@
 
 import './Homepage.css'
 import NavBar from './Navbar'
+import { useNavigate } from 'react-router-dom'
 export default function Homepage(){
+    const navigate = useNavigate()
     return(
         <>
-                <button className = "scanButton">Scan a bill</button>
+                <button className = "scanButton" onClick = {() => {navigate("/Transaction")}}>Scan a bill</button>
                 <p>Split any bill by scanning it with your camera, adding users to split with!</p>
 
                 <div className = "notificationsContainer">

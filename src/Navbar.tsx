@@ -2,7 +2,7 @@ import "./Navbar.css"
 export default function NavBar(){
     return(
         <div className = "navBarContainer">
-            <p>Shit</p>
+            <p>Tabs...</p>
         </div>
     )
 }
