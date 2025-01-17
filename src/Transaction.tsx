@@ -6,27 +6,33 @@ import { useState } from "react"
 const template = [
     {
         name: "Soda",
-        price: "1.53"
+        price: "1.53",
+        id: 0
     },
     {
         name: "Spaghetti",
-        price: "21.54"
+        price: "21.54",
+        id: 1
     },
     {
         name: "Hamburger",
-        price: "29.00"
+        price: "29.00",
+        id: 2
     },
     {
         name: "Pizza slice",
-        price: "5.00"
+        price: "5.00",
+        id: 3
     },
     {
-        name: "Beef Wellington",
-        price: "61.54"
+        name: "Steak",
+        price: "61.54",
+        id: 4
     },
     {
         name: "Side salad",
-        price: "4.00"
+        price: "4.00",
+        id: 5
     },
 ]
 
@@ -54,7 +60,7 @@ export default function Transaction(){
             <Header text = {"Order Summary"}></Header>
             <div className = "itemsContainer">
             {template.map((item) => (
-                <ItemCard name = {item.name} price = {item.price} selectable={false} selectFunction = {() => {}}></ItemCard>
+                <ItemCard name = {item.name} price = {item.price} selectable={false} selectFunction = {() => {}} selected = {false} id = {0}></ItemCard>
             ))}
             </div>
             <h1>Total: ${totalPrice}</h1>

@@ -5,10 +5,11 @@ interface ItemCardProps{
     name: String,
     price: String,
     selectable: Boolean,
-    selectFunction: Function
+    selectFunction: Function,
+    selected: boolean,
+    id: Number
 }
-export default function ItemCard({name, price, selectable, selectFunction}: ItemCardProps){
-    const [selected, setSelected] = useState(false)
+export default function ItemCard({name, price, selectable, selectFunction, selected, id}: ItemCardProps){
     return !selectable ?(
         <div className = "itemCardContainer">
             <p>{name}</p>
@@ -16,11 +17,11 @@ export default function ItemCard({name, price, selectable, selectFunction}: Item
         </div>
     ):
     (
-        <div className = "itemCardContainer" style = {selected ? {backgroundColor: "lightgray"}: {backgroundColor: "white"}} onClick = {()=>{selected ? setSelected(false) : setSelected(true)}}>
+        <div className = "itemCardContainer" style = {selected ? {backgroundColor: "lightgray"}: {backgroundColor: "white"}} onClick = {()=>{
+            selectFunction({name, price, id})
+        }}>
             <div className = "itemCardColumn">
-                <input id="checkBox" type='checkbox' checked = {selected} onChange={() => {
-                    selectFunction({name, price})
-                    }}></input>  
+                <input id="checkBox" type='checkbox' checked = {selected}></input>  
                 <p>{name}</p>
             </div>
             <p>{"$"+ price}</p>
