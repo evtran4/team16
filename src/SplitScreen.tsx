@@ -6,7 +6,7 @@ import Header from "./Header"
 
 interface Item{
     name: String,
-    price: String
+    price: String,
 }
 
 let currUserIndex = 0
