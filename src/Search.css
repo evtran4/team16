@@ -1,0 +1,78 @@
+
+.search{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index:2;
+  }
+
+  .backArrow{
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    z-index: 0;
+}
+  
+  .searchbar {
+    width: 70%; 
+    border: 1px solid #caced1;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 7px 10px 7px 10px;
+    justify-self: center;
+    align-self: center;
+  }
+  
+  .search_dropdown {
+    position: absolute;
+    background-color: #f9f9f9; /* Light gray background for contrast */
+    margin-top: 40px;
+    width: 750px;
+    text-align: left;
+    border-radius: 8px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #e0e0e0; /* Light border for structure */
+    z-index: 1000;
+    padding-bottom: 20px;
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+  
+  .search_dropdown_inactive {
+    display: none;
+  }
+  
+  /* styling the autocomplete options that appear in the dropdown */
+  .search_option {
+    margin-bottom: 0px;
+  }
+  
+  .search_option_container {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .search_option_container:hover {
+    opacity: 80%;
+  }
+
+  .profileResultContainer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-left: 15px;
+    gap: 10px;
+  }
+
+  .profileResultContainer:hover{
+    background-color: rgb(238, 238, 238);
+  }
+
+  .profilePicture{
+    height: 25px;
+    width: 25px;
+    background-color: lightgray;
+    border-radius: 50px;
+  }

@@ -7,6 +7,7 @@ import Homepage from './Homepage'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Transaction from './Transaction'
 import SplitScreen from './SplitScreen'
+import Search from './Search'
 function App() {
   return (
     <Router>
@@ -14,6 +15,7 @@ function App() {
           <Route path = "/" element = {<Homepage/>}></Route>
           <Route path = "/Transaction" element = {<Transaction/>}></Route>
           <Route path = "/SplitScreen" element = {<SplitScreen/>}></Route>
+          <Route path = "/Search" element = {<Search/>}></Route>
         </Routes>
     </Router>
   )

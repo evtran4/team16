@@ -1,0 +1,13 @@
+.backButtonContainer{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center
+}
+
+.backArrow{
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    z-index: 0;
+}

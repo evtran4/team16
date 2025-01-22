@@ -3,6 +3,7 @@ import ItemCard from "./ItemCard"
 import Header from "./Header"
 import './Transaction.css'
 import { useState } from "react"
+import Popup from "./Popup"
 const template = [
     {
         name: "Soda",
@@ -38,15 +39,7 @@ const template = [
 
 let tempUsers = [
     {
-        name: "Shelly",
-        currentItems: []
-    },
-    {
-        name: "Janet",
-        currentItems: []
-    },
-    {
-        name: "Gabe",
+        name: "Evan",
         currentItems: []
     }
 ]
@@ -55,8 +48,11 @@ export default function Transaction(){
     let totalPrice = 0;
     template.forEach((item)=>{totalPrice += +item.price});
     const [users, setUsers] = useState(tempUsers)
+    const [popup, setPopup] = useState(false)
+
     return(
         <>
+            <Popup active={popup} content={"addMembers"} setOpened={setPopup} currentUsers={users} setUsers={setUsers}></Popup>
             <Header text = {"Order Summary"}></Header>
             <div className = "itemsContainer">
             {template.map((item) => (
@@ -64,11 +60,12 @@ export default function Transaction(){
             ))}
             </div>
             <h1>Total: ${totalPrice}</h1>
-            <h3>Members added: Shelly, Janet, Gabe</h3>
+            <h3>Add members: </h3>
+            <button onClick = {()=>{setPopup(true)}}>Add people</button>
             <button className = "scanButton" onClick = {()=>{
                 navigate("/SplitScreen", {state:{users: users, items: template}})
                 }}>Split by item</button>
-                <p>Pass the device to each person for them to select their items</p>
+
         </>
     )
 }
