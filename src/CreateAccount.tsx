@@ -7,12 +7,19 @@ import ProgressBar from './ProgressBar';
 import OTPInput from './OTPInput.tsx';
 import EmailVerification from './EmailVerification.tsx';
 import './CreateAccount.css'
-let account = {
+interface account{
+    name: string,
+    email: string,
+    password: string,
+    cookie: string,
+    notifications: any[]
+}
+let account: account = {
     email: "",
     password: "",
     name: "",
     cookie: "",
-    notification: ""
+    notifications: []
 }
 
 function createCookie(){
@@ -33,8 +40,7 @@ function createAcc(){
       "name": account.name,
       "email": account.email,
       "password": account.password,
-      "likes": [],
-      "seen": [],
+      "notifications": account.notifications,
       "cookie": account.cookie
     });
   
@@ -59,21 +65,23 @@ export default function CreateAccount(){
 
     return(
         <>
-        {stepNum != 0? <ProgressBar step = {stepNum} steps = {3}></ProgressBar> : ""}
-        <div className = "accountSetupContainer">
-            <EmailVerification 
-                setStepNum = {setStepNum} 
-                stepNum = {stepNum} 
-                setEmail = {setEmail}
-                setPassword = {setPassword}/>
-            <Info
-                setStepNum = {setStepNum} 
-                stepNum = {stepNum}/>
-            <Finalize
-                setStepNum = {setStepNum} 
-                stepNum = {stepNum}
-                navigate = {navigate}/>
-        </div>
+            <div className = "centerContainer">
+                {stepNum != 0? <ProgressBar step = {stepNum} steps = {3}></ProgressBar> : ""}
+                <div className = "accountSetupContainer">
+                    <EmailVerification 
+                        setStepNum = {setStepNum} 
+                        stepNum = {stepNum} 
+                        setEmail = {setEmail}
+                        setPassword = {setPassword}/>
+                    <Info
+                        setStepNum = {setStepNum} 
+                        stepNum = {stepNum}/>
+                    <Finalize
+                        setStepNum = {setStepNum} 
+                        stepNum = {stepNum}
+                        navigate = {navigate}/>
+                </div>
+            </div>
         </>
     )
 }

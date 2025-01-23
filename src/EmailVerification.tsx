@@ -6,7 +6,7 @@ import AuthRouter from './App';
 import OTPInput from './OTPInput';
 
 let code = ""
-
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export default function EmailVerification({stepNum, setStepNum, setEmail, setPassword}: any){
   const [signUpStatus, setSignUpStatus] = useState("")
   const [emailInput, setEmailInput] = useState("")
@@ -27,39 +27,33 @@ export default function EmailVerification({stepNum, setStepNum, setEmail, setPas
         }
         return code
     }
-    const checkValidEmail = async (email) => {
+    const checkValidEmail = async (email: string) => {
         const raw = await fetch("http://127.0.0.1:8000/checkValidEmail/" + (email == ""? "blank": email))
         let response = await raw.json();
         return response.valid
     }
     const handleVerifyClick = async () => {
-        let email = document.getElementById("emailBox").value;
-        let validEmail = await checkValidEmail(email);
-        if(validEmail == true){
-            setEmailInput(email);
-            setPasswordInput(document.getElementById("passwordBox").value);
-            if(email.includes("@terpmail.umd.edu") || !email.includes("@terpmail.umd.edu")){
-                // code = generateCode()
-                code = 1111;
-                // const myHeaders = new Headers();
-                // myHeaders.append("Content-Type", "application/json");
+        if(emailRegex.test(emailInput)){
+            if(await checkValidEmail(emailInput)){
+                code = generateCode()
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
                 
-                // const raw = JSON.stringify({
-                //     "email" : [email]
-                // });
+                const raw = JSON.stringify({
+                    "email" : emailInput
+                });
         
-                // const requestOptions = {
-                //     method: "POST",
-                //     headers: myHeaders,
-                //     body: raw,
-                //     redirect: "follow"
-                // };
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                };
         
-                // const response = await fetch("http://127.0.0.1:8000/email/" + code, requestOptions)
+                const response = await fetch("http://127.0.0.1:8000/email/" + code, requestOptions)
                 setOtpStatus(true)
-                document.getElementById("submitButton").disabled = true;
-                document.getElementById("emailBox").disabled = true;
-                document.getElementById("passwordBox").disabled = true;
+                // document.getElementById("submitButton").disabled = true;
+                // document.getElementById("emailBox").disabled = true;
+                // document.getElementById("passwordBox").disabled = true;
             }
             else{
                 setSignUpStatus("Must register with a valid TerpMail address")
@@ -82,8 +76,8 @@ export default function EmailVerification({stepNum, setStepNum, setEmail, setPas
         <>
             <h3>Sign Up</h3>
             <p className = "inputStatus" style = {(signUpStatus == ""? {display: "none"}: {display: "block"})}>{signUpStatus}</p>
-            <input id = "emailBox" className = "informationBox" type = "text" placeholder = "Email"></input>
-            <input id = "passwordBox" className = "informationBox" type = "text" placeholder = "Password"></input>
+            <input id = "emailBox" className = "informationBox" type = "text" placeholder = "Email" onChange = {(e) => {setEmailInput(e.target.value)}}></input>
+            <input id = "passwordBox" className = "informationBox" type = "text" placeholder = "Password" onChange = {e => {setPasswordInput(e.target.value)}}></input>
             <button id = "submitButton" className = "submitButton" onClick = {() => {
                 //Make sure email is not being used 
                 handleVerifyClick(document.getElementById("emailBox").value)
