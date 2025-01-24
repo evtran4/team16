@@ -24,13 +24,14 @@ a:hover {
 body {
   margin: 0;
   display: block;
-  background-color: #f5f5f7;
+  background-color: #e0c3c3;
   height: 100vh
 }
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  font-family: 'Georgia', serif;
+  line-height: 1.5;
 }
 
 button {
@@ -40,7 +41,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #352e2e;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -61,6 +62,6 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f0e7e7;
   }
 }

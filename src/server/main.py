@@ -89,12 +89,11 @@ async def send(email: EmailSchema, code: str) -> JSONResponse:
         body=html,
         subtype=MessageType.html)
 
-
 ####  COMMENTS  ####
 # We will need a user serializer for each user
 # Ways to users by either their id or their cookie
 # each user will have a unique id
-# search funciton to reutrn 5-10 users based on a name search (probably the most complicated)
+# search function to return 5-10 users based on a name search (probably the most complicated)
 # field for each user showing ongoing payments (requests and requested)
 # email notification for payment stuff
 

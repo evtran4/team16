@@ -6,7 +6,7 @@ export default function Homepage(){
     const navigate = useNavigate()
     return(
         <>
-                <button className = "scanButton" onClick = {() => {navigate("/Transaction")}}>Scan a bill</button>
+                <button className = "scanButton" onClick = {() => {navigate("/Transaction")}}>Split!</button>
                 <p>Split any bill by scanning it with your camera, adding users to split with!</p>
 
                 <div className = "notificationsContainer">
