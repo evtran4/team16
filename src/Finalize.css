@@ -1,0 +1,17 @@
+.centerContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.summaryContainer{
+    height: 60vh;
+    width: 90%;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.itemText{
+    margin: 3px;
+}

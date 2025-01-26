@@ -40,9 +40,10 @@ function createAcc(){
       "name": account.name,
       "email": account.email,
       "password": account.password,
-      "notifications": account.notifications,
-      "cookie": account.cookie
+      "cookie": account.cookie,
+      "notifications": []
     });
+    console.log(raw)
   
     const requestOptions = {
       method: "POST",
@@ -101,7 +102,7 @@ function Info({stepNum, setStepNum}: any){
             </div>
 
             <button className = "submitButton" onClick = {() => {
-                let value = firstName + lastName
+                let value = (firstName.trim() + " " + lastName.trim()).trim()
                 if(value.length >= 2){
                     account.name = value;
                     setStepNum(2); 
@@ -133,7 +134,7 @@ function Info({stepNum, setStepNum}: any){
 
 
 function Finalize({stepNum, navigate}: any){
-    return (stepNum == 6)? (
+    return (stepNum == 2)? (
         <>
             <h3>Finalize!</h3>
             <button className = "submitButton" onClick = {() => {
@@ -141,7 +142,7 @@ function Finalize({stepNum, navigate}: any){
                 createAcc();
                 navigate("/")
                 }}>Create Account</button>
-            <p>Once you create an account, your Terpmail address cannot be used again.</p>
+            <p>Once you create an account, your Email address cannot be used again.</p>
         </>
     ): ""
 }

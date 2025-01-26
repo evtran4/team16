@@ -8,6 +8,14 @@
     align-items: center;
 }
 
+.searchResultContainer{
+  width: 100%;
+  text-align: left;
+  height: 50%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .popup{
     display: flex;
     flex-direction: column;

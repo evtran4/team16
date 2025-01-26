@@ -9,6 +9,8 @@ import Transaction from './Transaction'
 import SplitScreen from './SplitScreen'
 import Search from './Search'
 import CreateAccount from './CreateAccount'
+import Login from './Login'
+import Finalize from './Finalize'
 function App() {
   return (
     <Router>
@@ -18,6 +20,8 @@ function App() {
           <Route path = "/SplitScreen" element = {<SplitScreen/>}></Route>
           <Route path = "/Search" element = {<Search/>}></Route>
           <Route path = "/CreateAccount" element = {<CreateAccount/>}></Route>
+          <Route path = "/Login" element = {<Login/>}></Route>
+          <Route path = "/Finalize" element = {<Finalize/>}></Route>
         </Routes>
     </Router>
   )

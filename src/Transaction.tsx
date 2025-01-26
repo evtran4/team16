@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import ItemCard from "./ItemCard"
 import Header from "./Header"
 import './Transaction.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Popup from "./Popup"
+import NavBar from "./Navbar"
+
 const template = [
     {
         name: "Soda",
@@ -37,35 +39,60 @@ const template = [
     },
 ]
 
-let tempUsers = [
-    {
-        name: "Evan",
-        currentItems: []
-    }
-]
+
+
+interface User{
+    email: string
+    password: string
+    name: string
+    cookie: string
+}
+const loading: User = {
+    name: "Loading...",
+    password: "",
+    cookie: "",
+    email: ""
+}
+
 export default function Transaction(){
     let navigate = useNavigate()
+    let location = useLocation()
     let totalPrice = 0;
     template.forEach((item)=>{totalPrice += +item.price});
-    const [users, setUsers] = useState(tempUsers)
-    const [popup, setPopup] = useState(false)
 
+    const user = location.state.user;
+    const [users, setUsers] = useState<any[]>([{name:user.name, cookie: user.cookie, total: 0, currentItems:[]}])
+    const [popup, setPopup] = useState(false)
+    const [addedStr, changeAddedStr] = useState(user.name)
+
+    useEffect(()=>{
+        if(users.length > 1){
+            changeAddedStr(addedStr + ", " + users[users.length-1].name)
+        }
+    },[users])
+
+    console.log(users)
     return(
         <>
             <Popup active={popup} content={"addMembers"} setOpened={setPopup} currentUsers={users} setUsers={setUsers}></Popup>
-            <Header text = {"Order Summary"}></Header>
+            <Header text={"Order Summary"}></Header>
             <div className = "itemsContainer">
             {template.map((item) => (
                 <ItemCard name = {item.name} price = {item.price} selectable={false} selectFunction = {() => {}} selected = {false} id = {0}></ItemCard>
             ))}
             </div>
-            <h1>Total: ${totalPrice}</h1>
-            <h3>Add members: </h3>
-            <button onClick = {()=>{setPopup(true)}}>Add people</button>
-            <button className = "scanButton" onClick = {()=>{
-                navigate("/SplitScreen", {state:{users: users, items: template}})
-                }}>Split by item</button>
+            <h2 style={{textAlign: "center"}}>Total: ${totalPrice}</h2>
+            <h3 className = "addHeader">Add members: </h3>
+            <div className = "addedUsersContainer">
+                <p className = 'addedText'>{addedStr}</p>
+                <button className = "addButton" onClick = {()=>{setPopup(true)}}>Add</button>
+            </div>
 
+            <div className = "mainButtonContainer">
+                <button className = "scanButton" onClick = {()=>{
+                    navigate("/SplitScreen", {state:{users: users, items: template}})
+                    }}>Split by item</button>
+            </div>
         </>
     )
 }

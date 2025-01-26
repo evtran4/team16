@@ -20,9 +20,37 @@
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+    background-color: white;
 }
 
 .itemCardColumn{
     display: flex;
     gap: 10px;
+}
+
+.addedUsersContainer{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-left: 5px;
+    margin-bottom: 20px;
+}
+
+.addedText{
+    margin: 0px;
+}
+
+.addHeader{
+    margin: 0px;
+    margin-left: 5px;
+}
+
+.addButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 50px;
+    background-color: #fafafa;;
+    color: black
 }

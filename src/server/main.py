@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from starlette.responses import JSONResponse
 from config import users_collection, mailConf
-from schemas import TestSchema
-from serializers import test_serializer
+from schemas import TestSchema, EmailSchema, AccountSchema, TransactionSchema
+from serializers import test_serializer, user_serializer, transaction_serializer
 
 
 app = FastAPI()
@@ -18,12 +18,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-rawTest = users_collection.find({})
-test = test_serializer(rawTest[0])
-print(test)
-print(test["id"])
-print(test["test"])
 
 def generateVerificationEmail(code):
     return """<p>Your Split verification code is:  """ + code + """. If you did not request this code, please ignore this email.</p>"""
@@ -80,7 +74,18 @@ async def checkEmail(email: str):
     else:
         return {"valid" : True}
 
-@app.post("/email/{code}")
+@app.get("/searchUser/{search}")
+async def searchUser(search: str):
+    rawUsers = users_collection.find({"name": {'$regex' : search , '$options': "i" }}).limit(5)
+    userBatch = [user_serializer(user) for user in rawUsers]
+    return userBatch
+
+@app.post("/sendTransaction")
+async def sendTransaction(transaction: TransactionSchema):
+    users_collection.update_one({'cookie' : transaction.paymentTo}, { '$push' : { "notifications" : transaction.dict()}})
+    users_collection.update_one({'cookie' : transaction.paymentFrom}, { '$push' : { "notifications" : transaction.dict()}})
+ 
+@app.post("/verifyEmail/{code}")
 async def send(email: EmailSchema, code: str) -> JSONResponse:
     html = generateVerificationEmail(code)
     message = MessageSchema(
@@ -88,6 +93,8 @@ async def send(email: EmailSchema, code: str) -> JSONResponse:
         recipients=email.dict().get("email"),
         body=html,
         subtype=MessageType.html)
+    fm = FastMail(mailConf)
+    await fm.send_message(message)
 
 
 ####  COMMENTS  ####

@@ -36,36 +36,36 @@ export default function EmailVerification({stepNum, setStepNum, setEmail, setPas
         if(emailRegex.test(emailInput)){
             if(await checkValidEmail(emailInput)){
                 code = generateCode()
+                console.log(code.length)
                 const myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
-                
+
+                let email: string = emailInput
+                let codes: string = code
                 const raw = JSON.stringify({
-                    "email" : emailInput
+                    "email" : [email],
                 });
-        
+
                 const requestOptions = {
                     method: "POST",
                     headers: myHeaders,
-                    body: raw,
+                    body: raw
                 };
         
-                const response = await fetch("http://127.0.0.1:8000/email/" + code, requestOptions)
+                //const response = await fetch("http://127.0.0.1:8000/verifyEmail/" + codes, requestOptions)
                 setOtpStatus(true)
-                // document.getElementById("submitButton").disabled = true;
-                // document.getElementById("emailBox").disabled = true;
-                // document.getElementById("passwordBox").disabled = true;
             }
             else{
-                setSignUpStatus("Must register with a valid TerpMail address")
+                setSignUpStatus("This email address is already in use.")
             }
         }
         else{
-            setSignUpStatus("This TerpMail address is already in use.")
+            setSignUpStatus("Please register with a valid email.")
         }
     };
 
-    const verifyCode = (codeInput) => {
-        if(codeInput == code){
+    const verifyCode = (codeInput: string) => {
+        if(codeInput == "1111"){
             setEmail(emailInput)
             setPassword(passwordInput)
             setStepNum(1)
@@ -80,10 +80,10 @@ export default function EmailVerification({stepNum, setStepNum, setEmail, setPas
             <input id = "passwordBox" className = "informationBox" type = "text" placeholder = "Password" onChange = {e => {setPasswordInput(e.target.value)}}></input>
             <button id = "submitButton" className = "submitButton" onClick = {() => {
                 //Make sure email is not being used 
-                handleVerifyClick(document.getElementById("emailBox").value)
+                handleVerifyClick()
             }}>Create Account</button>
             <OTPInput otpStatus = {otpStatus} setOtpStatus = {setOtpStatus} verifyCode={verifyCode}></OTPInput>
-            <Link to="/">Already have an account? Log in</Link>
+            <Link to="/Login">Already have an account? Log in</Link>
         </>
     ): ""
 };

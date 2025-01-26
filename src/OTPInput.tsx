@@ -2,9 +2,9 @@ import { useRef } from "react"
 import { useState } from "react"
 import { useEffect } from "react"
 let inputs = ["", "", "", ""]
-export default function OTPInput({otpStatus, setOtpStatus, verifyCode}){
+export default function OTPInput({otpStatus, setOtpStatus, verifyCode}: any){
     const [otp, setOtp] = useState(new Array(4).fill(""))
-    const inputRefs = useRef([])
+    const inputRefs= useRef<any[]>([])
 
     useEffect(() => {
         if (inputRefs.current[0]) {
@@ -12,7 +12,7 @@ export default function OTPInput({otpStatus, setOtpStatus, verifyCode}){
         }
       }, [otpStatus]);
 
-    const handleChange = (index, e) => {
+    const handleChange = (index: number, e: any) => {
         const value = e.target.value;
         if (isNaN(value)) return;
     
@@ -33,18 +33,18 @@ export default function OTPInput({otpStatus, setOtpStatus, verifyCode}){
         }
       };
 
-    const handleKeyDown = (index, event) => {
+    const handleKeyDown = (index: number, event: any) => {
         if(event.key == "Backspace" && !otp[index] && index != 0 && inputRefs.current[index-1]){
             inputRefs.current[index -1].focus()
         }
     }
-    const handleClick = (index) => {
+    const handleClick = (index: number) => {
         inputRefs.current[index].setSelectionRange(1, 1);
 
       };
   return (otpStatus) ? (
         <>
-            <p>Please enter the verification code sent to your Terpmail</p>
+            <p>Please enter the verification code sent to your Email</p>
             <div className = "OTPInputContainer">
                 {otp.map((value, index) => (
                     <input 

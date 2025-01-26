@@ -2,11 +2,11 @@ interface ProfileResultProps{
     name: string,
     func: Function
 }
-export default function ProfileResult({name,func}: ProfileResultProps){
+export default function ProfileResult({profile,func}: any){
     return(
-        <div className = "profileResultContainer" onClick = {()=>{func(name)}}>
+        <div className = "profileResultContainer" onClick = {()=>{func(profile)}}>
             <div className = "profilePicture"></div>
-            <p>{name}</p>
+            <p>{profile.name}</p>
         </div>
     )
 }

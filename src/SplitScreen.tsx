@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import ItemCard from "./ItemCard"
 import { useEffect, useState } from "react"
 import Header from "./Header"
@@ -14,27 +14,13 @@ let currUserIndex = 0
 
 export default function SplitScreen(){
     const location = useLocation()
+    const navigate = useNavigate()
     const [items, setItems] = useState(location.state.items);
     const [currTotal, setCurrTotal] = useState(0);
 
     const [selectedArr, setSelectedArr] = useState<Set<Number>>(new Set<Number>);
 
     const [currUser, setCurrUser] = useState(location.state.users[currUserIndex])
-
-    useEffect(()=>{
-        console.log("changed")
-    },[selectedArr])
-
-    // const findItem = (itemToFind: Item) => {
-    //     for(let i =0; i < currUser.currentItems.length; i++){
-    //         let currItem = currUser.currentItems[i]
-
-    //         if(currItem.name == itemToFind.name && currItem.price == itemToFind.price){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 
     const resetItems = () => {
         let temp = new Array<Item>()
@@ -47,21 +33,8 @@ export default function SplitScreen(){
         setSelectedArr(new Set<Number>)
     }
 
-    // const removeItem = (itemToRemove: Item) => {
-    //     let index = 0;
-    //     for(let i =0; i < selectedArr.size; i++){
-    //         let currItem = currUser.currentItems[i]
-    //         if(currItem.name == itemToRemove.name && currItem.price == itemToRemove.price){
-    //             index = i;
-    //         }
-    //     }
-    //     selectedArr.delete(itemToRemove.id)
-    //     setSelectedArr(selectedArr)
-    //     currUser.currentItems.splice(index,1)
-    // }
 
     const changeItems = (item: Item) => {
-        console.log(selectedArr)
         if(selectedArr.has(item.id)){
             selectedArr.delete(item.id)
         }
@@ -70,18 +43,17 @@ export default function SplitScreen(){
         }
         const temp = new Set<Number>()
         selectedArr.forEach((id:Number) => {temp.add(id)})
-        setSelectedArr(temp)
         calculateUserTotal()
-        console.log(selectedArr)
     }
 
 
     const calculateUserTotal = () => {
         let total = 0;
         selectedArr.forEach((id: Number)=>{
-            total += +(items.find((item:Item) => item.id == id)).price
+            let item = items.find((item:Item) => item.id == id)
+            total += +item.price
         })
-        setCurrTotal(total)
+        setCurrTotal(Math.round(total * 100)/100)
     }
 
 
@@ -99,8 +71,20 @@ export default function SplitScreen(){
             </div>
             <h3>{currUser.name}'s total: {"$" + currTotal}</h3>
             <button className = "scanButton" onClick = {()=>{
-                resetItems()
-                setCurrUser(location.state.users[++currUserIndex]);
+
+                selectedArr.forEach((id: Number)=>{
+                    let item = items.find((item:Item) => item.id == id)
+                    currUser.currentItems.push(item)
+                })
+                currUser.total = currTotal;
+            
+                if(currUserIndex < location.state.users.length-1){
+                    resetItems()
+                    setCurrUser(location.state.users[++currUserIndex]);
+                }
+                else{
+                    navigate("/Finalize", {state:{users: location.state.users}})
+                }
             }}>Next</button>
         </>
     )
