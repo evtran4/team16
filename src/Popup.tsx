@@ -38,7 +38,6 @@ export default function Popup({active, content, setOpened, currentUsers, setUser
                     <div className = "popup">
                         <div className="search">
                                 <input className="searchbar" type="text" value = {search} placeholder="Search" onChange={((e)=>{setSearch(e.target.value)})}/>
-                                <img className = "backArrow" src={'backArrow.png'} onClick = {() => {setOpened(false)}}></img>
                         </div>
 
                         <div className = "searchResultContainer">

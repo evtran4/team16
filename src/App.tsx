@@ -11,6 +11,7 @@ import Search from './Search'
 import CreateAccount from './CreateAccount'
 import Login from './Login'
 import Finalize from './Finalize'
+import Settings from './Settings'
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
           <Route path = "/CreateAccount" element = {<CreateAccount/>}></Route>
           <Route path = "/Login" element = {<Login/>}></Route>
           <Route path = "/Finalize" element = {<Finalize/>}></Route>
+          <Route path = "/Settings" element = {<Settings/>}></Route>
         </Routes>
     </Router>
   )

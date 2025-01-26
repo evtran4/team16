@@ -10,6 +10,7 @@ interface User{
 
 export default function Notification({user, notification}: any){
     const [name, setName] = useState("Loading...")
+    const [paid, setPaid] = useState(false)
 
     useEffect(()=>{
         if(user.cookie == notification.paymentTo){
@@ -25,6 +26,17 @@ export default function Notification({user, notification}: any){
         setName(user.name)
     }
 
+    const sendPayment = async ()=>{
+        setPaid(true)
+        const userRawResponse = await fetch("http://127.0.0.1:8000/sendPayment/" + notification.id, {
+            method: 'DELETE'
+        })
+    }
+
+    if(paid){
+        return ""
+    }
+
     if(notification.paymentTo == -1){
         return(
             <p>You currently have no ongoing payments</p>
@@ -37,7 +49,12 @@ export default function Notification({user, notification}: any){
     }
     else{
         return(
-            <p className = "notificationText">{name} requested ${notification.amount}</p>
+            <div className = "outgoingPaymentContainer">
+                <p className = "notificationText">{name} requested ${notification.amount}</p>
+                <button onClick = {()=>{
+                    sendPayment()
+                }}>Pay</button>
+            </div>
         )
     }
 }

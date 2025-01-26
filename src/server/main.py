@@ -96,6 +96,18 @@ async def send(email: EmailSchema, code: str) -> JSONResponse:
     fm = FastMail(mailConf)
     await fm.send_message(message)
 
+@app.delete("/sendPayment/{id}")
+async def sendPayment(id: str):
+    # Update query to remove the transaction object with the specified ID
+
+    update_query = {
+        "$pull": {
+            "notifications": {"id": id}
+        }
+    }
+
+    result = users_collection.update_many({}, update_query)
+
 
 ####  COMMENTS  ####
 # We will need a user serializer for each user
