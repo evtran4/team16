@@ -12,6 +12,7 @@ import CreateAccount from './CreateAccount'
 import Login from './Login'
 import Finalize from './Finalize'
 import Settings from './Settings'
+import Camera from './Camera'
 function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ function App() {
           <Route path = "/Login" element = {<Login/>}></Route>
           <Route path = "/Finalize" element = {<Finalize/>}></Route>
           <Route path = "/Settings" element = {<Settings/>}></Route>
+          <Route path = "/Camera" element = {<Camera/>}></Route>
         </Routes>
     </Router>
   )

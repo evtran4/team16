@@ -98,7 +98,7 @@ export default function Homepage(){
             <div className = "mainButtonContainer">
             <button className = "scanButton" onClick = {() => {
                     if(user != loading){
-                        navigate("/Transaction", {state:{user: user}})
+                        navigate("/Camera", {state:{user: user}})
                     }
                     }}>Split!</button>
                 <p>Hi {user.name}! Split any bill by scanning it with your camera and adding users to split with!</p>

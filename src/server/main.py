@@ -1,10 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from starlette.responses import JSONResponse
 from config import users_collection, mailConf
 from schemas import TestSchema, EmailSchema, AccountSchema, TransactionSchema
 from serializers import test_serializer, user_serializer, transaction_serializer
+
+from PIL import Image
+import PIL.Image
+import io
+import pytesseract
+import re
+
 
 
 app = FastAPI()
@@ -109,6 +116,29 @@ async def sendPayment(id: str):
     result = users_collection.update_many({}, update_query)
 
 
+@app.post("/getItems")
+async def upload_image(file: UploadFile = File(...)):
+    try:
+        myconfig = r"--psm 6 --oem 1"
+
+        contents = await file.read()
+        # Open the image with PIL
+        image = Image.open(io.BytesIO(contents))
+        image = image.convert("RGB")
+
+        text = pytesseract.image_to_string(image, config=myconfig)
+        print(text)
+        text = re.findall(r'(\d+\s*x?\s*\w+(?: \w+)*)\s*[-]?\s*\$?(\d+\.\d{2})', text)
+        print(text)
+
+ 
+        items = [{'id': idx + 1, 'name': item[0].strip(), 'price': item[1]} for idx, item in enumerate(text)]
+
+        return {
+            "items": items,
+        }
+    except Exception as e:
+        return {"error": str(e)}
 ####  COMMENTS  ####
 # We will need a user serializer for each user
 # Ways to users by either their id or their cookie

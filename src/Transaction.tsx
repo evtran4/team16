@@ -6,38 +6,38 @@ import { useEffect, useState } from "react"
 import Popup from "./Popup"
 import NavBar from "./Navbar"
 
-const template = [
-    {
-        name: "Soda",
-        price: "1.53",
-        id: 0
-    },
-    {
-        name: "Spaghetti",
-        price: "21.54",
-        id: 1
-    },
-    {
-        name: "Hamburger",
-        price: "29.00",
-        id: 2
-    },
-    {
-        name: "Pizza slice",
-        price: "5.00",
-        id: 3
-    },
-    {
-        name: "Steak",
-        price: "61.54",
-        id: 4
-    },
-    {
-        name: "Side salad",
-        price: "4.00",
-        id: 5
-    },
-]
+// const template = [
+//     {
+//         name: "Soda",
+//         price: "1.53",
+//         id: 0
+//     },
+//     {
+//         name: "Spaghetti",
+//         price: "21.54",
+//         id: 1
+//     },
+//     {
+//         name: "Hamburger",
+//         price: "29.00",
+//         id: 2
+//     },
+//     {
+//         name: "Pizza slice",
+//         price: "5.00",
+//         id: 3
+//     },
+//     {
+//         name: "Steak",
+//         price: "61.54",
+//         id: 4
+//     },
+//     {
+//         name: "Side salad",
+//         price: "4.00",
+//         id: 5
+//     },
+// ]
 
 
 
@@ -57,9 +57,11 @@ const loading: User = {
 export default function Transaction(){
     let navigate = useNavigate()
     let location = useLocation()
+    let template: any[] = location.state.items
     let totalPrice = 0;
     template.forEach((item)=>{totalPrice += +item.price});
 
+    console.log(template)
     const user = location.state.user;
     const [users, setUsers] = useState<any[]>([{name:user.name, cookie: user.cookie, total: 0, currentItems:[]}])
     const [popup, setPopup] = useState(false)
