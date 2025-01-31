@@ -70,22 +70,23 @@ export default function SplitScreen(){
                 ))}
             </div>
             <h3>{currUser.name}'s total: {"$" + currTotal}</h3>
-            <button className = "scanButton" onClick = {()=>{
+            <div className = "mainButtonContainer">
+                <button className = "scanButton" onClick = {()=>{
+                    selectedArr.forEach((id: Number)=>{
+                        let item = items.find((item:Item) => item.id == id)
+                        currUser.currentItems.push(item)
+                    })
+                    currUser.total = currTotal;
 
-                selectedArr.forEach((id: Number)=>{
-                    let item = items.find((item:Item) => item.id == id)
-                    currUser.currentItems.push(item)
-                })
-                currUser.total = currTotal;
-            
-                if(currUserIndex < location.state.users.length-1){
-                    resetItems()
-                    setCurrUser(location.state.users[++currUserIndex]);
-                }
-                else{
-                    navigate("/Finalize", {state:{users: location.state.users}})
-                }
-            }}>Next</button>
+                    if(currUserIndex < location.state.users.length-1){
+                        resetItems()
+                        setCurrUser(location.state.users[++currUserIndex]);
+                    }
+                    else{
+                        navigate("/Finalize", {state:{users: location.state.users}})
+                    }
+                }}>Next</button>
+            </div>
         </>
     )
 }

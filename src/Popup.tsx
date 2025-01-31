@@ -53,9 +53,11 @@ export default function Popup({active, content, setOpened, currentUsers, setUser
 
 
                         <h3>Users:</h3>
-                        {added.map((member: any) => (
-                            <p>{member.name}</p>
-                        ))}
+                        <div className = "popupAddedContainer">
+                            {added.map((member: any) => (
+                                <p className = "popupAddedUserName">{member.name}</p>
+                            ))}
+                        </div>
 
                         <button onClick = {()=>{
                             setUsers(added)

@@ -8,6 +8,13 @@
     align-items: center;
 }
 
+.popupAddedContainer{
+  height: 100px;
+  overflow-y: auto;
+  width: 20%;
+  text-align: center;
+}
+
 .searchResultContainer{
   width: 100%;
   text-align: left;

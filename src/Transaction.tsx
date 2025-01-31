@@ -68,9 +68,13 @@ export default function Transaction(){
     const [addedStr, changeAddedStr] = useState(user.name)
 
     useEffect(()=>{
-        if(users.length > 1){
-            changeAddedStr(addedStr + ", " + users[users.length-1].name)
-        }
+        let newString = ""
+        users.forEach((user: User)=>{
+            newString += user.name + ", "
+        })
+
+        newString = newString.substring(0, newString.length - 3)
+        changeAddedStr(newString)
     },[users])
 
     console.log(users)

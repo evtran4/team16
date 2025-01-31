@@ -128,7 +128,7 @@ async def upload_image(file: UploadFile = File(...)):
 
         text = pytesseract.image_to_string(image, config=myconfig)
         print(text)
-        text = re.findall(r'(\d+\s*x?\s*\w+(?: \w+)*)\s*[-]?\s*\$?(\d+\.\d{2})', text)
+        text = re.findall(r'(?:\d+\s*x?\s*)?(\w+(?: \w+)*)\s*[-]?\s*\$?(\d+\.\d{2})', text)
         print(text)
 
  
